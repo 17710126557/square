@@ -45,6 +45,7 @@ var Game = function(){
 			divs.push(div);
 		}
 	}
+
 	//刷新方块 
 	var refresDiv = (data,divs)=>{
 		for(var i=0;i<data.length;i++){
@@ -65,6 +66,73 @@ var Game = function(){
 		}
 	}
 
+	// 设置数据
+	var setData = function(){
+		for(var i =0;i<cur.data.length;i++){
+			for(var j =0; j<cur.data[0].length;j++){
+				if(checkValid(cur.origin,i,j)){
+					gameData[cur.origin.x+i][cur.origin.y+j] = cur.data[i][j];	
+				}
+			}
+		}
+	}
+
+	// 清除数据
+	var clearData = function(){
+		for(var i =0;i<cur.data.length;i++){
+			for(var j =0; j<cur.data[0].length;j++){
+				if(checkValid(cur.origin,i,j)){
+					gameData[cur.origin.x+i][cur.origin.y+j] = 0;
+				};
+			}
+		}
+	}
+	
+	// 检查数据是否合法
+	var checkValid = function(pos,x,y){
+		console.log('pos',pos,x,y);
+		if(pos.x + x < 0){
+			return false;
+		}else if(pos.x + x >= gameData.length){
+			return false
+		}else if(pos.y + y >= gameData[0].length){
+			return false;
+		}else if(pos.y + y < 0){
+			return false;
+		}else if(gameData[pos.x + x][pos.y + y] == 1){
+			return false;
+		}else{
+			return true
+		}
+	}
+
+	//数据是否还能下降
+	var isValid = function(pos,data){
+		for(var i =0;i<data.length;i++){
+			for(var j =0; j<data[0].length;j++){
+				if(data[i][j] != 0){
+					if(!checkValid(pos,i,j)){
+						return false;
+					};
+				}
+		
+			}
+		}
+		return true;
+	}
+
+	// 向下
+	var down = function(){
+		if(cur.canDown(isValid)){
+			clearData();
+			cur.down();
+			setData();
+			refresDiv(gameData,gameDivs);
+		}
+
+	}
+
+	//初始化 
 	var init = (doms) =>{
 		gameDiv = doms.gameDiv;
 		nextDiv = doms.nextDiv;
@@ -74,15 +142,11 @@ var Game = function(){
 		initDiv(nextDiv,next.data,nextDivs);
 		cur.origin.x = 10;
 		cur.origin.y = 5;
-		for(var i =0;i<cur.data.length;i++){
-			for(var j =0; j<cur.data[0].length;j++){
-				gameData[cur.origin.x+i][cur.origin.y+j] = cur.data[i][j]
-				console.log(cur.data[i][j]);
-			}
-		}
+		setData();
 		refresDiv(gameData,gameDivs);
 		refresDiv(next.data,nextDivs);
 	}
 
 	this.init = init;
+	this.down = down;
 }
