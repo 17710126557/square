@@ -90,7 +90,7 @@ var Game = function(){
 	
 	// 检查数据是否合法
 	var checkValid = function(pos,x,y){
-		console.log('pos',pos,x,y);
+		// console.log('pos',pos,x,y);
 		if(pos.x + x < 0){
 			return false;
 		}else if(pos.x + x >= gameData.length){
@@ -108,7 +108,8 @@ var Game = function(){
 
 	//数据是否还能下降
 	var isValid = function(pos,data){
-		for(var i =0;i<data.length;i++){
+		console.log('r t',pos);
+		for(var i = 0;i<data.length;i++){
 			for(var j =0; j<data[0].length;j++){
 				if(data[i][j] != 0){
 					if(!checkValid(pos,i,j)){
@@ -140,7 +141,7 @@ var Game = function(){
 		next = new Square();
 		initDiv(gameDiv,gameData,gameDivs);
 		initDiv(nextDiv,next.data,nextDivs);
-		cur.origin.x = 10;
+		cur.origin.x = 13;
 		cur.origin.y = 5;
 		setData();
 		refresDiv(gameData,gameDivs);
