@@ -129,6 +129,39 @@ var Game = function(){
 			cur.down();
 			setData();
 			refresDiv(gameData,gameDivs);
+			return true;
+		}else{
+			return false;
+		}
+
+	}	
+	// 向左
+	var left = function(){
+		if(cur.canLeft(isValid)){
+			clearData();
+			cur.left();
+			setData();
+			refresDiv(gameData,gameDivs);
+		}
+
+	}	
+	// 向右
+	var right = function(){
+		if(cur.canRight(isValid)){
+			clearData();
+			cur.right();
+			setData();
+			refresDiv(gameData,gameDivs);
+		}
+
+	}
+	// 旋转
+	var rotate = function(){
+		if(cur.canRotate(isValid)){
+			clearData();
+			cur.rotate();
+			setData();
+			refresDiv(gameData,gameDivs);
 		}
 
 	}
@@ -148,6 +181,14 @@ var Game = function(){
 		refresDiv(next.data,nextDivs);
 	}
 
-	this.init = init;
-	this.down = down;
+	this.init =   init;
+	this.down =   down;
+	this.right=   right;
+	this.left =   left;
+	this.rotate = rotate;
+	this.auto   =function(){
+		while(down()){
+			down();
+		}
+	}
 }

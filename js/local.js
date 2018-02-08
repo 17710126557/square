@@ -5,16 +5,20 @@ var Local = function(){
 		document.onkeydown = function(e){
 			switch(e.keyCode){
 				case 38://up
+				game.rotate();
 				break;			
 				case 39://right
+				game.right();
 				break;			
 				case 40://down
 				game.down();
 				console.log('down')
 				break;			
 				case 37://left
+				game.left();
 				break;
 				case 32://space
+				game.auto();
 				break;
 			}
 		}

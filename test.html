@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test</title>
+</head>
+<body>	
+
+</body>
+<script type="text/javascript">
+function selectionSort(arr){
+    var len=arr.length;
+    var minIndex,temp;
+    // 插入排序
+    for(var i=1;i<len;i++){
+    	var j = i-1;
+    	var tmp = arr[i];
+    	while(j>=0 && arr[j] > tmp){
+    		arr[j+1] = arr[j];
+    		j--;
+    	}
+    	arr[j+1] = tmp;
+    }
+    return arr;
+}
+var arr=[3,2,1,5,9];
+console.log(selectionSort(arr));
+</script>
+</html>
+
